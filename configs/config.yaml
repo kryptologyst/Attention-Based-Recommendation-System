@@ -1,0 +1,56 @@
+# Configuration for Attention-based Recommendation System
+
+# Data settings
+data:
+  dataset_name: "movie_lens_attention"
+  interactions_file: "data/raw/interactions.csv"
+  items_file: "data/raw/items.csv"
+  users_file: "data/raw/users.csv"
+  min_interactions_per_user: 5
+  min_interactions_per_item: 5
+  test_size: 0.2
+  val_size: 0.1
+  random_state: 42
+
+# Model settings
+model:
+  embedding_dim: 64
+  hidden_dim: 128
+  num_heads: 8
+  num_layers: 2
+  dropout: 0.1
+  attention_dropout: 0.1
+  use_positional_encoding: true
+  max_sequence_length: 50
+
+# Training settings
+training:
+  batch_size: 256
+  learning_rate: 0.001
+  num_epochs: 100
+  early_stopping_patience: 10
+  weight_decay: 1e-5
+  gradient_clip_norm: 1.0
+  device: "auto"  # auto, cpu, cuda
+
+# Evaluation settings
+evaluation:
+  metrics: ["precision@k", "recall@k", "ndcg@k", "map@k", "hit_rate@k"]
+  k_values: [5, 10, 20]
+  test_batch_size: 512
+  num_negatives: 100
+
+# Attention mechanisms to compare
+attention_types:
+  - "self_attention"
+  - "multi_head_attention"
+  - "transformer_attention"
+  - "item_attention"
+  - "user_attention"
+
+# Demo settings
+demo:
+  port: 8501
+  host: "localhost"
+  max_recommendations: 20
+  show_attention_weights: true
